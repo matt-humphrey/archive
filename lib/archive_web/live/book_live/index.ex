@@ -3,10 +3,11 @@ defmodule ArchiveWeb.BookLive.Index do
 
   alias Archive.Books
   alias Archive.Books.Book
+  alias Archive.Repo
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :books, Books.list_books())}
+    {:ok, stream(socket, :books, Books.list_books() |> Repo.preload([:author]))}
   end
 
   @impl true
@@ -34,7 +35,7 @@ defmodule ArchiveWeb.BookLive.Index do
 
   @impl true
   def handle_info({ArchiveWeb.BookLive.FormComponent, {:saved, book}}, socket) do
-    {:noreply, stream_insert(socket, :books, book)}
+    {:noreply, stream_insert(socket, :books, book |> Repo.preload([:author]))}
   end
 
   @impl true

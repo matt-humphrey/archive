@@ -18,7 +18,9 @@ defmodule Archive.Books do
 
   """
   def list_books do
-    Repo.all(Book)
+    Book
+    |> Repo.all()
+    |> Repo.preload([:author])
   end
 
   @doc """
@@ -35,7 +37,11 @@ defmodule Archive.Books do
       ** (Ecto.NoResultsError)
 
   """
-  def get_book!(id), do: Repo.get!(Book, id)
+  def get_book!(id) do
+    Book
+    |> Repo.get!(id)
+    |> Repo.preload([:author])
+  end
 
   @doc """
   Creates a book.

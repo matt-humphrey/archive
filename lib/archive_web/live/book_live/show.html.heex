@@ -10,7 +10,11 @@
 
 <.list>
   <:item title="Title"><%= @book.title %></:item>
-  <:item title="Author"><%= @book.author %></:item>
+  <:item title="Author">
+    <%= if @book.author do %>
+      <%= @book.author.name %>
+    <% end %>
+  </:item>
   <:item title="Rating"><%= @book.rating %></:item>
   <:item title="Date read"><%= @book.date_read %></:item>
 </.list>

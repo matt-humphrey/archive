@@ -20,9 +20,9 @@ defmodule ArchiveWeb.BookLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:title]} type="text" label="Title" />
-        <.input field={@form[:author]} type="text" label="Author" />
+        <!--.input field={@form[:author]} type="text" label="Author" /-->
         <.input field={@form[:rating]} type="number" label="Rating" />
-        <.input field={@form[:date_read]} type="datetime-local" label="Date read" />
+        <.input field={@form[:date_read]} type="date" label="Date Read" />
         <:actions>
           <.button phx-disable-with="Saving...">Save Book</.button>
         </:actions>

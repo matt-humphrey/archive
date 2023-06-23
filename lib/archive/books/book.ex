@@ -4,9 +4,11 @@ defmodule Archive.Books.Book do
 
   schema "books" do
     field :title, :string
-    field :author, :string
     field :rating, :integer
-    field :date_read, :naive_datetime
+    field :date_read, :date
+    belongs_to :author, Archive.Authors.Author
+    # many_to_many :tags, Archive.Tags.Tag, join_through: "book_tags", on_replace: :delete
+    # has_one :cover_art, Archive.Books.CoverArt
 
     timestamps()
   end
@@ -14,7 +16,8 @@ defmodule Archive.Books.Book do
   @doc false
   def changeset(book, attrs) do
     book
-    |> cast(attrs, [:title, :author, :rating, :date_read])
-    |> validate_required([:title, :author])
+    |> cast(attrs, [:title, :rating, :date_read, :author_id])
+    |> validate_required([:title])
+    |> foreign_key_constraint(:author_id)
   end
 end
