@@ -59,6 +59,7 @@ defmodule Archive.Books do
     %Book{}
     |> Book.changeset(attrs)
     |> Repo.insert()
+
   end
 
   @doc """
