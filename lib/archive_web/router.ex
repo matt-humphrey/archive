@@ -19,19 +19,30 @@ defmodule ArchiveWeb.Router do
 
     get "/", PageController, :home
 
+    # books
     live "/books", BookLive.Index, :index
     live "/books/new", BookLive.Index, :new
+    live "/books/upload", BookLive.Index, :upload
     live "/books/:id/edit", BookLive.Index, :edit
 
     live "/books/:id", BookLive.Show, :show
     live "/books/:id/show/edit", BookLive.Show, :edit
 
+    # authors
     live "/authors", AuthorLive.Index, :index
     live "/authors/new", AuthorLive.Index, :new
     live "/authors/:id/edit", AuthorLive.Index, :edit
 
     live "/authors/:id", AuthorLive.Show, :show
     live "/authors/:id/show/edit", AuthorLive.Show, :edit
+
+    # highlights
+    live "/highlights", HighlightLive.Index, :index
+    live "/highlights/new", HighlightLive.Index, :new
+    live "/highlights/:id/edit", HighlightLive.Index, :edit
+
+    live "/highlights/:id", HighlightLive.Show, :show
+    live "/highlights/:id/show/edit", HighlightLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

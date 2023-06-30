@@ -7,8 +7,6 @@ defmodule Archive.Books.Book do
     field :rating, :integer
     field :date_read, :date
     belongs_to :author, Archive.Authors.Author
-    # many_to_many :tags, Archive.Tags.Tag, join_through: "book_tags", on_replace: :delete
-    # has_one :cover_art, Archive.Books.CoverArt
 
     timestamps()
   end

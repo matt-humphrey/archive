@@ -1,0 +1,44 @@
+<.header>
+  Listing Highlights
+  <:actions>
+    <.link patch={~p"/highlights/new"}>
+      <.button>New Highlight</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="highlights"
+  rows={@streams.highlights}
+  row_click={fn {_id, highlight} -> JS.navigate(~p"/highlights/#{highlight}") end}
+>
+  <:col :let={{_id, highlight}} label="Content"><%= highlight.content %></:col>
+  <:col :let={{_id, highlight}} label="Note"><%= highlight.note %></:col>
+  <:col :let={{_id, highlight}} label="Reference"><%= highlight.reference %></:col>
+  <:col :let={{_id, highlight}} label="Date Highlighted"><%= highlight.date %></:col>
+  <:action :let={{_id, highlight}}>
+    <div class="sr-only">
+      <.link navigate={~p"/highlights/#{highlight}"}>Show</.link>
+    </div>
+    <.link patch={~p"/highlights/#{highlight}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, highlight}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: highlight.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="highlight-modal" show on_cancel={JS.patch(~p"/highlights")}>
+  <.live_component
+    module={ArchiveWeb.HighlightLive.FormComponent}
+    id={@highlight.id || :new}
+    title={@page_title}
+    action={@live_action}
+    highlight={@highlight}
+    patch={~p"/highlights"}
+  />
+</.modal>
